@@ -30,6 +30,58 @@ k<!DOCTYPE html>
     .hero-gradient {
       background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
     }
+    /* Base styles */
+.nav-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+background-color: #333;
+color: white;
+}
+
+.nav-links {
+display: flex;
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.nav-links li {
+margin: 0 10px;
+}
+
+.nav-links a {
+color: white;
+text-decoration: none;
+}
+
+/* Hide the nav links by default on small screens */
+.nav-links {
+display: none;
+flex-direction: column;
+text-align: center;
+}
+
+.nav-toggle {
+background: none;
+border: none;
+color: white;
+font-size: 24px;
+cursor: pointer;
+display: none;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+.nav-toggle {
+display: block;
+}
+
+.nav-links.active {
+display: flex;
+}
+}
   </style>
 </head>
 <body x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="bg-white text-gray-800 transition duration-300">
@@ -38,19 +90,20 @@ k<!DOCTYPE html>
   <header class="bg-white shadow fixed top-0 left-0 right-0 z-50 dark:bg-gray-900 dark:text-white">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
 
-      <h1 class="text-xl font-bold text-blue-700">Kverify</h1>
-      <nav class="space-x-6 hidden md:block">
-      <h1 class="text-xl font-bold text-blue-700">KVERIFY</h1>
-      <nav class="space-x-6 md:block">
-
-        <a href="#about" class="hover:text-blue-600 transition">About</a>
-        <a href="#services" class="hover:text-blue-600 transition">Services</a>
-        <a href="#portfolio" class="hover:text-blue-600 transition">Portfolio</a>
-        <a href="blog.html" class="hover:text-blue-600 transition">Blog</a>
-        <a href="products.html" class="hover:text-blue-600 transition">Shop</a>
-        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
-        <a href="#" @click="toggleLang" class="hover:text-blue-600 transition">🌐</a>
-      </nav>
+<nav>
+  <div class="nav-container">
+    <a href="#" class="logo">My Portfolio</a>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      &#9776;
+    </button>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
       <button @click="darkMode = !darkMode" class="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
         <span x-show="!darkMode">🌙</span>
         <span x-show="darkMode">☀️</span>
@@ -291,6 +344,15 @@ k<!DOCTYPE html>
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js "></script>
   <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+navToggle.addEventListener("click", function () {
+navLinks.classList.toggle("active");
+});
+});
     // Initialize Swiper
     const swiper = new Swiper('.swiper-container', {
       loop: true,
@@ -315,6 +377,7 @@ k<!DOCTYPE html>
       document.getElementById("formStatus").classList.remove("hidden");
       this.reset();
     });
+    
   </script>
 </body>
 </html>
