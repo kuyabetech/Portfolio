@@ -41,12 +41,12 @@ list-style: none;
 margin: 0;
 padding: 0;
 }
-    .navb{
+/*     .navb{
       display:flex;
       align-items: center;
       justify-content: space-between;
     }
-
+ */
 .nav-links li {
 margin: 0 10px;
 }
@@ -70,6 +70,21 @@ color: white;
 font-size: 24px;
 cursor: pointer;
 display: none;
+}
+    .swiper-container {
+  width: 100%;
+  height: auto;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Media query for small screens */
@@ -121,27 +136,26 @@ display: flex;
     </div>
   </section>
 
-  <!-- Image Carousel -->
-  <!--<section class="py-10 bg-gray-50 dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Our Work</h2>
-      <div class="swiper-container w-full">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="2.jpeg" alt="Project 1" class="w-full h-64 object-cover rounded-lg shadow-md">
-          </div>
-          <div class="swiper-slide">
-            <img src="3.jpeg " alt="Project 2" class="w-full h-64 object-cover rounded-lg shadow-md">
-          </div>
-          <div class="swiper-slide">
-            <img src="1.jpeg " alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-md">
-          </div>
+  <!-- Image Carousel --><section class="py-10 bg-gray-50 dark:bg-gray-800">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Work</h2>
+    <div class="swiper-container w-full">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="2.jpeg" alt="Project 1" class="w-full h-64 object-cover rounded-lg shadow-md">
         </div>
-        <!-- Add Pagination -->
-      <!--  <div class="swiper-pagination mt-4"></div>
+        <div class="swiper-slide">
+          <img src="3.jpeg" alt="Project 2" class="w-full h-64 object-cover rounded-lg shadow-md">
+        </div>
+        <div class="swiper-slide">
+          <img src="1.jpeg" alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-md">
+        </div>
       </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination mt-4"></div>
     </div>
-  </section> -->
+  </div>
+</section>
 
   <!-- About Section -->
   <section id="about" class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white">
@@ -350,17 +364,29 @@ navLinks.classList.toggle("active");
 });
 });
     // Initialize Swiper
-    const swiper = new Swiper('.swiper-container', {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
+    <script>
+  var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 1, // Show one slide at a time by default
+    spaceBetween: 10, // Space between slides
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      // When window width is >= 640px
+      640: {
+        slidesPerView: 2, // Show 2 slides on medium screens
+        spaceBetween: 20,
       },
-      autoplay: {
-        delay: 3000,
+      // When window width is >= 1024px
+      1024: {
+        slidesPerView: 3, // Show 3 slides on large screens
+        spaceBetween: 30,
       },
-    });
-
+    },
+  });
+</script>
+  <script>
     // Newsletter & Contact Forms
     document.getElementById("newsletterForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -377,7 +403,7 @@ navLinks.classList.toggle("active");
   </script>
 
   
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
   const swiper = new Swiper('.swiper-container', {
     loop: true,
@@ -386,7 +412,7 @@ navLinks.classList.toggle("active");
     },
   });
 </script>
-
+ -->
 
 <script>
   document.querySelector('.nav-toggle').addEventListener('click', () => {
