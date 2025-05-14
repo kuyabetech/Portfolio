@@ -26,105 +26,70 @@
       background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
     }
     /* Base styles */
+header {
+  width: 100%;
+}
+
 .nav-container {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px;
-background-color: #333;
-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .nav-links {
-display: flex;
-list-style: none;
-margin: 0;
-padding: 0;
-}
-/*     .navb{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-    }
- */
-.nav-links li {
-margin: 0 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-links a {
-color: white;
-text-decoration: none;
-}
-
-/* Hide the nav links by default on small screens */
-.nav-links {
-display: none;
-flex-direction: column;
-text-align: center;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
 }
 
 .nav-toggle {
-background: none;
-border: none;
-color: white;
-font-size: 24px;
-cursor: pointer;
-display: none;
-}
-    .swiper-container {
-  width: 100%;
-  height: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex !important;
+  }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Media query for small screens */
-@media (max-width: 768px) {
-.nav-toggle {
-display: block;
-  width: 150px;
-  left:0;
-  padding:10px;
-}
-
-.nav-links.active {
-display: flex;
-}
-}
-  </style>
+  .nav-toggle {
+    display: none;
+  }
+}  </style>
 </head>
 <body x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="bg-white text-gray-800 transition duration-300">
 
   <!-- Navigation -->
   <header class="bg-white shadow fixed top-0 left-0 right-0 z-50 dark:bg-gray-900 dark:text-white">
-    
-<nav>
-  <div class="nav-container">
-    <div class="navb">
-    <a href="#" class="logo">Kverify</a>
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      &#9776;
-    </button>
+  <nav>
+    <div class="nav-container flex items-center justify-between px-4 py-3">
+      <a href="#" class="logo text-xl font-bold">Kverify</a>
+      <button
+        class="nav-toggle text-2xl focus:outline-none md:hidden"
+        aria-label="Toggle navigation"
+        id="nav-toggle"
+      >
+        &#9776;
+      </button>
     </div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul
+      class="nav-links hidden flex-col items-center mt-2 space-y-4 md:space-y-0 md:flex md:flex-row md:space-x-6 md:mt-0"
+      id="nav-links"
+    >
+      <li><a href="#home" class="hover:text-gray-500 dark:hover:text-gray-300">Home</a></li>
+      <li><a href="#about" class="hover:text-gray-500 dark:hover:text-gray-300">About</a></li>
+      <li><a href="#projects" class="hover:text-gray-500 dark:hover:text-gray-300">Projects</a></li>
+      <li><a href="#contact" class="hover:text-gray-500 dark:hover:text-gray-300">Contact</a></li>
     </ul>
-  </div>
-</nav>
-  </header>
-
+  </nav>
+</header>
   <!-- Hero Section -->
   <section class="hero-gradient text-white pt-24 pb-16 text-center">
     <div class="container mx-auto px-4">
@@ -135,8 +100,9 @@ display: flex;
       </a>
     </div>
   </section>
-
-  <!-- Image Carousel --><section class="py-10 bg-gray-50 dark:bg-gray-800">
+  <!-- Image Carousel -->
+  
+<!-- <section class="py-10 bg-gray-50 dark:bg-gray-800">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-8">Our Work</h2>
     <div class="swiper-container w-full">
@@ -150,13 +116,13 @@ display: flex;
         <div class="swiper-slide">
           <img src="1.jpeg" alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-md">
         </div>
-      </div>
+      </div>-->
       <!-- Add Pagination -->
-      <div class="swiper-pagination mt-4"></div>
+<!--       <div class="swiper-pagination mt-4"></div>
     </div>
   </div>
 </section>
-
+  -->
   <!-- About Section -->
   <section id="about" class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white">
     <div class="container mx-auto px-4">
@@ -415,10 +381,12 @@ navLinks.classList.toggle("active");
  -->
 
 <script>
-  document.querySelector('.nav-toggle').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('active');
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden'); // Toggle visibility
   });
 </script>
-
 </body>
 </html>
