@@ -1,4 +1,4 @@
-k<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
@@ -6,18 +6,12 @@ k<!DOCTYPE html>
 
   <title>Kverify | Portfolio</title>
 
-  <!-- Tailwind CSS -->
 
-  <script src="https://cdn.tailwindcss.com "></script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter :wght@400;600;700&display=swap" rel="stylesheet">
-
+  <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <!-- SwiperJS for Carousel -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css " />
-
-  <!-- Alpine.js for Interactivity -->
-  <script src="https://unpkg.com/alpinejs @3.x.x/dist/cdn.min.js" defer></script>
 
   <style>
     body {
@@ -100,7 +94,7 @@ display: flex;
     
 <nav>
   <div class="nav-container">
-    <div class="navb>
+    <div class="navb">
     <a href="#" class="logo">Kverify</a>
     <button class="nav-toggle" aria-label="Toggle navigation">
       &#9776;
@@ -381,5 +375,24 @@ navLinks.classList.toggle("active");
     });
     
   </script>
+
+  
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  });
+</script>
+
+
+<script>
+  document.querySelector('.nav-toggle').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+  });
+</script>
+
 </body>
 </html>
