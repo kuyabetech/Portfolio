@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Post - KVERIFY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #f0f4ff 0%, #e0e7ff 100%);
+      min-height: 100vh;
+    }
+    .post-hero {
+      background: linear-gradient(90deg, #6366f1 0%, #38bdf8 100%);
+      color: #fff;
+      padding: 2.5rem 0 1.5rem 0;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 4px 24px 0 rgba(59,130,246,0.08);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-hero img {
+      max-width: 100%;
+      max-height: 340px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin: 0 auto 1.5rem auto;
+      box-shadow: 0 2px 12px 0 rgba(59,130,246,0.10);
+    }
+    .category-badge {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 0.25rem 0.9rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .author-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 0.7rem;
+      border: 2px solid #6366f1;
+    }
+    .post-content img {
+      max-width: 100%;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    .post-content h2, .post-content h3 {
+      color: #2563eb;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .post-content p {
+      margin-bottom: 1.2rem;
+      color: #334155;
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+    /* Responsive styles */
+    @media (max-width: 640px) {
+      .post-hero {
+        padding: 1.2rem 0 1rem 0;
+        border-radius: 0 0 1.2rem 1.2rem;
+      }
+      .post-hero img {
+        max-height: 180px;
+        border-radius: 0.7rem;
+        margin-bottom: 1rem;
+      }
+      .post-content {
+        padding: 1rem !important;
+      }
+      .post-content h1, .post-content h2 {
+        font-size: 1.3rem !important;
+      }
+      .author-img {
+        width: 32px;
+        height: 32px;
+        margin-right: 0.4rem;
+      }
+      main.container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <div id="post-hero" class="post-hero">
+    <!-- Hero content will be injected here -->
+    <div class="animate-pulse text-xl">Loading post...</div>
+  </div>
+  <main class="container mx-auto px-4 py-6 max-w-3xl">
+    <article id="post-content" class="post-content bg-white rounded-lg shadow p-6">
+      <!-- Post content will be injected here -->
+    </article>
+    <div class="mt-10 text-center">
+      <a href="blog.html" class="text-blue-600 underline font-semibold">&larr; Back to Blog</a>
+    </div>
+  </main>
+  <footer class="py-8 text-center text-gray-500 border-t mt-10">
+    &copy; 2025 KVERIFY. All rights reserved.
+  </footer>
+  <script>
+    // Helper to get query param
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    // Render post content
+    function renderPost(post) {
+      document.getElementById("post-hero").innerHTML = `
+        ${post.cover_image ? `<img src="${post.cover_image}" alt="${post.title}" />` : ""}
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-2">${post.title}</h1>
+        <div class="flex items-center justify-center text-gray-100 text-base mb-2">
+          <img src="${post.user.profile_image}" class="author-img" alt="Author">
+          <span>By ${post.user.name || post.user.username}</span>
+          <span class="mx-2">|</span>
+          <span>${new Date(post.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+        </div>
+        <div>
+          ${(post.tag_list || []).map(cat => `<span class="category-badge">${cat}</span>`).join("")}
+        </div>
+      `;
+      document.getElementById("post-content").innerHTML = `
+        <p class="text-lg text-gray-600 mb-6">${post.description || ""}</p>
+        <div>${post.body_html || "<div class='italic text-gray-400'>No content available.</div>"}</div>
+      `;
+    }
+
+    function renderError(message) {
+      document.getElementById("post-hero").innerHTML = `<div class="text-red-600 text-xl font-bold">${message}</div>`;
+      document.getElementById("post-content").innerHTML = "";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const postId = getQueryParam("id");
+      if (!postId) {
+        renderError("No post ID provided.");
+        return;
+      }
+      // Try to fetch from DEV.to API
+      fetch(`https://dev.to/api/articles/${postId}`)
+        .then(res => {
+          if (!res.ok) throw new Error("Not found");
+          return res.json();
+        })
+        .then(post => {
+          if (!post || post.error || !post.title) {
+            // Try fallback: fetch from JSONPlaceholder as demo
+            fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+              .then(r => r.ok ? r.json() : null)
+              .then(fallbackPost => {
+                if (!fallbackPost || !fallbackPost.title) {
+                  renderError("Failed to load post. Please check your internet connection or try again later.");
+                  return;
+                }
+                document.getElementById("post-hero").innerHTML = `
+                  <h1 class="text-3xl md:text-4xl font-extrabold mb-2">${fallbackPost.title}</h1>
+                  <div class="flex items-center justify-center text-gray-100 text-base mb-2">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="author-img" alt="Author">
+                    <span>By John Doe</span>
+                    <span class="mx-2">|</span>
+                    <span>${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                  </div>
+                  <div>
+                    <span class="category-badge">Demo</span>
+                  </div>
+                `;
+                document.getElementById("post-content").innerHTML = `
+                  <p class="text-lg text-gray-600 mb-6">This is a demo post loaded from JSONPlaceholder.</p>
+                  <div><p>${fallbackPost.body}</p></div>
+                `;
+              });
+            return;
+          }
+          renderPost(post);
+        })
+        .catch(() => {
+          renderError("Failed to load post. Please check your internet connection or try again later.");
+        });
+    });
+  </script>
+</body>
+</html>
+
