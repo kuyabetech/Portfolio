@@ -664,6 +664,7 @@
 
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js "></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     
     document.addEventListener("DOMContentLoaded", function () {
@@ -708,10 +709,38 @@ navLinks.classList.toggle("active");
       this.reset();
     });
 
+    // EmailJS Contact Form
+    (function() {
+      emailjs.init("YOUR_EMAILJS_USER_ID"); // <-- Replace with your EmailJS user ID
+    })();
+
     document.getElementById("contactForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      document.getElementById("formStatus").classList.remove("hidden");
-      this.reset();
+      var formStatus = document.getElementById("formStatus");
+      formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
+      formStatus.textContent = "Sending...";
+      formStatus.classList.add("text-blue-400");
+
+      // Prepare params for EmailJS
+      var form = this;
+      var params = {
+        from_name: form.querySelector('input[placeholder="Your Name"]').value,
+        from_email: form.querySelector('input[placeholder="Your Email"]').value,
+        message: form.querySelector('textarea[placeholder="Your Message"]').value
+      };
+
+      // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID' with your EmailJS values
+      emailjs.send('service_lpmhx1f', 'template_wy4ezja', params)
+        .then(function() {
+          formStatus.textContent = "Message sent successfully!";
+          formStatus.classList.remove("text-blue-400");
+          formStatus.classList.add("text-green-600");
+          form.reset();
+        }, function(error) {
+          formStatus.textContent = "Failed to send. Please try again.";
+          formStatus.classList.remove("text-blue-400");
+          formStatus.classList.add("text-red-600");
+        });
     });
 
     // Animated Counters
@@ -859,119 +888,6 @@ navLinks.classList.toggle("active");
 </script>
  
 
-<script>
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('hidden'); // Toggle visibility
-  });
-</script>
+<!-- Removed duplicate navToggle/navLinks script to fix redeclaration error -->
 </body>
-</html>
-</html>
-</html>
-      if (typedHero) typeHero();
-
-      // FAQ Accordion
-      document.querySelectorAll('.faq-question').forEach((btn) => {
-        btn.addEventListener('click', function () {
-          const answer = this.parentElement.querySelector('.faq-answer');
-          const arrow = this.querySelector('.faq-arrow');
-          if (answer.classList.contains('hidden')) {
-            document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
-            document.querySelectorAll('.faq-arrow').forEach(ar => ar.style.transform = '');
-            answer.classList.remove('hidden');
-            arrow.style.transform = 'rotate(180deg)';
-          } else {
-            answer.classList.add('hidden');
-            arrow.style.transform = '';
-          }
-        });
-      });
-    });
-
-  // Contact Form AJAX Send
-  document.addEventListener("DOMContentLoaded", function () {
-    // Contact form send
-    const contactForm = document.getElementById("contactForm");
-    const formStatus = document.getElementById("formStatus");
-    if (contactForm) {
-      contactForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
-        formStatus.textContent = "Sending...";
-        formStatus.classList.add("text-blue-400");
-        // Gather form data
-        const [name, email, message] = Array.from(contactForm.querySelectorAll("input, textarea")).map(i => i.value);
-        // Example POST (replace URL with your backend endpoint)
-        fetch("https://formspree.io/f/your-form-id", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, message })
-        })
-        .then(res => {
-          if (res.ok) {
-            formStatus.textContent = "Message sent successfully!";
-            formStatus.classList.remove("text-blue-400");
-            formStatus.classList.add("text-green-600");
-            contactForm.reset();
-          } else {
-            throw new Error("Network error");
-          }
-        })
-        .catch(() => {
-          formStatus.textContent = "Failed to send. Please try again.";
-          formStatus.classList.remove("text-blue-400");
-          formStatus.classList.add("text-red-600");
-        });
-      });
-    }
-  });
-  </script>
-
-  
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script>
-  const swiper = new Swiper('.swiper-container', {
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-    },
-  });
-</script>
- 
-
-<script>
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('hidden'); // Toggle visibility
-  });
-</script>
-<script>
-  // Theme icon toggle
-  document.addEventListener("DOMContentLoaded", function () {
-    const btn = document.getElementById('theme-toggle-btn');
-    const sun = document.getElementById('theme-sun');
-    const moon = document.getElementById('theme-moon');
-    btn.addEventListener('click', function () {
-      const isDark = document.documentElement.classList.contains('dark');
-      if (!isDark) {
-        sun.style.display = 'none';
-        moon.style.display = '';
-      } else {
-        // If cycling back to light, show sun
-        if (techThemeIndex === 0) {
-          sun.style.display = '';
-          moon.style.display = 'none';
-        }
-      }
-    });
-  });
-</script>
-</body>
-</html>
-</html>
 </html>
