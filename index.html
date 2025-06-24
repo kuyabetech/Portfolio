@@ -261,56 +261,6 @@
       margin-bottom: 0.5rem;
     }
   </style>
-  <script>
-  // Tech dark theme variants
-  const techThemes = [
-    {
-      background: "linear-gradient(120deg, #1e293b 0%, #0f172a 100%)",
-      color: "#e2e8f0"
-    },
-    {
-      background: "linear-gradient(120deg, #0f2027 0%, #2c5364 100%)",
-      color: "#a5b4fc"
-    },
-    {
-      background: "linear-gradient(120deg, #232526 0%, #414345 100%)",
-      color: "#f472b6"
-    },
-    {
-      background: "linear-gradient(120deg, #373b44 0%, #4286f4 100%)",
-      color: "#facc15"
-    },
-    {
-      background: "linear-gradient(120deg, #0f2027 0%, #2c5364 100%)",
-      color: "#38bdf8"
-    }
-  ];
-  let techThemeIndex = 0;
-  function applyTechTheme(index) {
-    document.body.style.background = techThemes[index].background;
-    document.body.style.color = techThemes[index].color;
-    document.documentElement.classList.add('dark');
-  }
-  function resetTheme() {
-    document.body.style.background = "";
-    document.body.style.color = "";
-    document.documentElement.classList.remove('dark');
-  }
-  function toggleTechTheme() {
-    const isDark = document.documentElement.classList.contains('dark');
-    if (!isDark) {
-      techThemeIndex = 0;
-      applyTechTheme(techThemeIndex);
-    } else {
-      techThemeIndex = (techThemeIndex + 1) % techThemes.length;
-      applyTechTheme(techThemeIndex);
-      // If user cycles through all, next click disables dark mode
-      if (techThemeIndex === 0) {
-        resetTheme();
-      }
-    }
-  }
-</script>
 </head>
 <body x-data="themeSwitcher" :class="{ 'dark': darkMode }" class="bg-white text-gray-800 transition duration-300">
 
@@ -332,17 +282,7 @@
         <li><a href="#contact" class="hover:text-gray-500 dark:hover:text-gray-300">Contact</a></li>
       </ul>
       <div class="flex items-center space-x-2">
-        <!-- Dark mode toggle button -->
-        <button 
-          x-on:click="switchTheme"
-          class="text-xl md:mr-2"
-          aria-label="Toggle dark mode"
-          title="Toggle dark mode"
-          id="theme-toggle-btn"
-        >
-          <span id="theme-sun">&#9788;</span>
-          <span id="theme-moon" style="display:none">&#9790;</span>
-        </button>
+        <!-- Remove Dark mode toggle button -->
         <button
           class="nav-toggle text-2xl focus:outline-none md:hidden"
           aria-label="Toggle navigation"
@@ -696,7 +636,7 @@
           <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn" class="hover:text-blue-300 text-xl"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 inline"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.845-1.563 3.043 0 3.604 2.004 3.604 4.609v5.587z"/></svg></a>
           <a href="mailto:info@kverify.com" aria-label="Email" class="hover:text-yellow-400 text-xl"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 inline"><path d="M12 13.065l-11.99-8.065h23.98l-11.99 8.065zm-12-9.065v16h24v-16h-24zm22 2.236v11.764h-20v-11.764l10 6.729 10-6.729z"/></svg></a>
           <!-- WhatsApp Icon -->
-          <a href="https://wa.me/2348012345678" target="_blank" aria-label="WhatsApp" class="hover:text-green-400 text-xl">
+          <a href="https://wa.me/2347011632616" target="_blank" aria-label="WhatsApp" class="hover:text-green-400 text-xl">
             <svg fill="currentColor" viewBox="0 0 32 32" class="w-6 h-6 inline">
               <path d="M16.001 3.2c-7.062 0-12.8 5.738-12.8 12.8 0 2.262.6 4.462 1.738 6.4l-1.862 6.8 7.025-1.85c1.85 1.012 3.938 1.55 5.899 1.55h.001c7.062 0 12.8-5.738 12.8-12.8s-5.738-12.8-12.801-12.8zm6.962 18.238c-.3.838-1.762 1.637-2.425 1.75-.637.112-1.425.162-2.3-.15-.525-.175-1.2-.388-2.075-.762-3.65-1.587-6.037-5.488-6.225-5.75-.188-.262-1.488-1.975-1.488-3.775 0-1.8 1.125-2.687 1.525-3.05.4-.363.875-.45 1.175-.45.3 0 .588.006.838.016.262.012.625-.1.975.75.363.875 1.238 3.025 1.35 3.25.112.225.188.5.037.813-.15.312-.225.5-.45.775-.225.275-.475.613-.675.825-.225.225-.45.463-.2.9.25.438 1.112 1.825 2.388 2.95 1.637 1.45 2.025 1.2 2.4 1.05.375-.15 1.025-.413 1.3-.825.275-.413 1.3-1.438 1.65-1.938.35-.5.7-.413 1.175-.25.475.162 3.025 1.425 3.55 1.675.525.25.875.375 1 .588.125.213.125 1.237-.175 2.075z"/>
             </svg>
@@ -710,7 +650,7 @@
   </footer>
 
   <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/2348012345678" target="_blank" aria-label="Chat on WhatsApp"
+  <a href="https://wa.me/2347011632616" target="_blank" aria-label="Chat on WhatsApp"
      class="fixed bottom-20 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg p-4 flex items-center justify-center transition-all duration-300"
      style="box-shadow: 0 4px 24px 0 rgba(16,185,129,0.25);">
     <svg fill="currentColor" viewBox="0 0 32 32" class="w-7 h-7">
@@ -848,6 +788,89 @@ navLinks.classList.toggle("active");
           }
         }
       }
+      if (typedHero) typeHero();
+
+      // FAQ Accordion
+      document.querySelectorAll('.faq-question').forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const answer = this.parentElement.querySelector('.faq-answer');
+          const arrow = this.querySelector('.faq-arrow');
+          if (answer.classList.contains('hidden')) {
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+            document.querySelectorAll('.faq-arrow').forEach(ar => ar.style.transform = '');
+            answer.classList.remove('hidden');
+            arrow.style.transform = 'rotate(180deg)';
+          } else {
+            answer.classList.add('hidden');
+            arrow.style.transform = '';
+          }
+        });
+      });
+    });
+
+  // Contact Form AJAX Send
+  document.addEventListener("DOMContentLoaded", function () {
+    // Contact form send
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+    if (contactForm) {
+      contactForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
+        formStatus.textContent = "Sending...";
+        formStatus.classList.add("text-blue-400");
+        // Gather form data
+        const [name, email, message] = Array.from(contactForm.querySelectorAll("input, textarea")).map(i => i.value);
+        // Example POST (replace URL with your backend endpoint)
+        fetch("https://formspree.io/f/your-form-id", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message })
+        })
+        .then(res => {
+          if (res.ok) {
+            formStatus.textContent = "Message sent successfully!";
+            formStatus.classList.remove("text-blue-400");
+            formStatus.classList.add("text-green-600");
+            contactForm.reset();
+          } else {
+            throw new Error("Network error");
+          }
+        })
+        .catch(() => {
+          formStatus.textContent = "Failed to send. Please try again.";
+          formStatus.classList.remove("text-blue-400");
+          formStatus.classList.add("text-red-600");
+        });
+      });
+    }
+  });
+  </script>
+
+  
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  });
+</script>
+ 
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('hidden'); // Toggle visibility
+  });
+</script>
+</body>
+</html>
+</html>
+</html>
       if (typedHero) typeHero();
 
       // FAQ Accordion
