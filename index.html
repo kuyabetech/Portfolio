@@ -17,122 +17,405 @@
     body {
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      background: linear-gradient(120deg, #0f172a 0%, #312e81 100%);
+      min-height: 100vh;
+      transition: background 0.5s;
     }
     .dark-mode {
-      background-color: #1a202c;
+      background: linear-gradient(120deg, #1e293b 0%, #0f172a 100%);
       color: #e2e8f0;
     }
+    /* Tech animated gradient for hero */
     .hero-gradient {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      background: linear-gradient(270deg, #0ea5e9, #6366f1, #a21caf, #0ea5e9);
+      background-size: 600% 600%;
+      animation: gradientMove 10s ease-in-out infinite;
     }
-    /* Base styles */
-header {
-  width: 100%;
-}
-
-.nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-}
-
-.nav-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-@media (min-width: 768px) {
-  .nav-links {
-    display: flex !important;
+    @keyframes gradientMove {
+      0% {background-position:0% 50%}
+      50% {background-position:100% 50%}
+      100% {background-position:0% 50%}
+    }
+    /* Navbar styles */
+    header {
+      width: 100%;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid rgba(99, 102, 241, 0.18);
+      box-shadow: 0 4px 24px 0 rgba(99, 102, 241, 0.08);
+      border-radius: 0 0 1.5rem 1.5rem;
+      transition: background 0.3s;
+      background: rgba(15, 23, 42, 0.85);
+      animation: navFadeIn 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes navFadeIn {
+      from { opacity: 0; transform: translateY(-30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .logo {
+      letter-spacing: 2px;
+      color: #38bdf8;
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-shadow: 0 0 8px #6366f1, 0 0 2px #0ea5e9;
+      transition: color 0.2s, text-shadow 0.3s;
+      animation: logoGlow 2s infinite alternate;
+    }
+    @keyframes logoGlow {
+      from { text-shadow: 0 0 8px #6366f1, 0 0 2px #0ea5e9;}
+      to { text-shadow: 0 0 24px #a21caf, 0 0 8px #38bdf8;}
+    }
+    .dark .logo {
+      color: #818cf8;
+      text-shadow: 0 0 12px #a21caf, 0 0 4px #818cf8;
+    }
+    .nav-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+    }
+    .nav-links li {
+      margin: 0 0.5rem;
+      position: relative;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #e0e7ef;
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      border-radius: 0.7rem;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 transparent;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%);
+      color: #fff;
+      box-shadow: 0 0 12px #6366f1, 0 0 4px #0ea5e9;
+    }
+    .nav-links a.active,
+    .nav-links a[aria-current="page"] {
+      background: linear-gradient(90deg, #a21caf 0%, #6366f1 100%);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 0 16px #a21caf, 0 0 8px #6366f1;
+    }
+    .nav-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #38bdf8;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.2s;
+    }
+    .nav-toggle:hover,
+    .nav-toggle:focus {
+      background: rgba(99, 102, 241, 0.12);
+    }
+    .dark .nav-toggle {
+      color: #818cf8;
+    }
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0;
+      }
+      .nav-toggle {
+        display: none;
+      }
+    }
+    @media (max-width: 767px) {
+      .nav-links {
+        background: rgba(30,41,59,0.98);
+        box-shadow: 0 8px 24px 0 rgba(99, 102, 241, 0.13);
+        border-radius: 1rem;
+        margin-top: 0.5rem;
+        padding: 1rem 0;
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        top: 4.5rem;
+        z-index: 40;
+      }
+    }
+    /* Tech-glow for sections */
+    .tech-glow {
+      box-shadow: 0 0 32px 0 #6366f1, 0 0 8px 0 #0ea5e9;
+      border: 2px solid #6366f1;
+      border-radius: 1.5rem;
+      background: rgba(30,41,59,0.7);
+      transition: box-shadow 0.3s, border 0.3s;
+    }
+    /* Animated entrance for hero */
+    .hero-animate {
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      animation: heroIn 1.2s 0.2s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    @keyframes heroIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    /* Animated underline for section titles */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+      color: #38bdf8;
+      text-shadow: 0 0 8px #6366f1;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 3px;
+      margin: 0.5rem auto 0;
+      background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%);
+      border-radius: 2px;
+      animation: underlineGlow 2s infinite alternate;
+    }
+    @keyframes underlineGlow {
+      from { box-shadow: 0 0 8px #6366f1; }
+      to { box-shadow: 0 0 24px #0ea5e9; }
+    }
+    /* Glowing button */
+    .glow-btn {
+      background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%);
+      color: #fff !important;
+      box-shadow: 0 0 16px #6366f1, 0 0 8px #0ea5e9;
+      border: none;
+      outline: none;
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    .glow-btn:hover, .glow-btn:focus {
+      background: linear-gradient(90deg, #a21caf 0%, #6366f1 100%);
+      box-shadow: 0 0 32px #a21caf, 0 0 16px #6366f1;
+    }
+    /* Animated counters */
+    .counter {
+      animation: counterPop 1s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes counterPop {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    /* Scroll to top button tech style */
+    #scrollToTopBtn {
+      background: linear-gradient(90deg, #6366f1 0%, #0ea5e9 100%);
+      box-shadow: 0 0 16px #6366f1, 0 0 8px #0ea5e9;
+      border: none;
+    }
+    #scrollToTopBtn:hover {
+      background: linear-gradient(90deg, #a21caf 0%, #6366f1 100%);
+      box-shadow: 0 0 32px #a21caf, 0 0 16px #6366f1;
+    }
+    /* Floating tech icons */
+    #floating-icons {
+      pointer-events: none;
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #floating-icons svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    /* Blinking cursor for typing effect */
+    .blinking-cursor {
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      to { opacity: 0; }
+    }
+    /* FAQ Accordion styles */
+    #faq-accordion .faq-question {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    #faq-accordion .faq-answer {
+      transition: max-height 0.3s, opacity 0.3s;
+    }
+    #faq-accordion .faq-item {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+  <script>
+  // Tech dark theme variants
+  const techThemes = [
+    {
+      background: "linear-gradient(120deg, #1e293b 0%, #0f172a 100%)",
+      color: "#e2e8f0"
+    },
+    {
+      background: "linear-gradient(120deg, #0f2027 0%, #2c5364 100%)",
+      color: "#a5b4fc"
+    },
+    {
+      background: "linear-gradient(120deg, #232526 0%, #414345 100%)",
+      color: "#f472b6"
+    },
+    {
+      background: "linear-gradient(120deg, #373b44 0%, #4286f4 100%)",
+      color: "#facc15"
+    },
+    {
+      background: "linear-gradient(120deg, #0f2027 0%, #2c5364 100%)",
+      color: "#38bdf8"
+    }
+  ];
+  let techThemeIndex = 0;
+  function applyTechTheme(index) {
+    document.body.style.background = techThemes[index].background;
+    document.body.style.color = techThemes[index].color;
+    document.documentElement.classList.add('dark');
   }
-
-  .nav-toggle {
-    display: none;
+  function resetTheme() {
+    document.body.style.background = "";
+    document.body.style.color = "";
+    document.documentElement.classList.remove('dark');
   }
-}  </style>
+  function toggleTechTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (!isDark) {
+      techThemeIndex = 0;
+      applyTechTheme(techThemeIndex);
+    } else {
+      techThemeIndex = (techThemeIndex + 1) % techThemes.length;
+      applyTechTheme(techThemeIndex);
+      // If user cycles through all, next click disables dark mode
+      if (techThemeIndex === 0) {
+        resetTheme();
+      }
+    }
+  }
+</script>
 </head>
-<body x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="bg-white text-gray-800 transition duration-300">
+<body x-data="themeSwitcher" :class="{ 'dark': darkMode }" class="bg-white text-gray-800 transition duration-300">
 
   <!-- Navigation -->
-  <header class="bg-white shadow fixed top-0 left-0 right-0 z-50 dark:bg-gray-900 dark:text-white">
+  <header class="bg-transparent shadow fixed top-0 left-0 right-0 z-50 dark:bg-gray-900 dark:text-white">
   <nav>
-    <div class="nav-container flex items-center justify-between px-4 py-3">
-      <a href="#" class="logo text-xl font-bold">Kverify</a>
-      <button
-        class="nav-toggle text-2xl focus:outline-none md:hidden"
-        aria-label="Toggle navigation"
-        id="nav-toggle"
+    <div class="nav-container flex items-center justify-between px-4 py-3 relative">
+      <!-- Flex container for logo and nav controls -->
+      <div class="flex items-center flex-1">
+        <a href="#" class="logo text-xl font-bold mr-4">Kverify</a>
+      </div>
+      <ul
+        class="nav-links hidden flex-col items-center mt-2 space-y-4 md:space-y-0 md:flex md:flex-row md:space-x-6 md:mt-0 md:justify-end md:items-center"
+        id="nav-links"
       >
-        &#9776;
-      </button>
+        <li><a href="#home" class="hover:text-gray-500 dark:hover:text-gray-300">Home</a></li>
+        <li><a href="#about" class="hover:text-gray-500 dark:hover:text-gray-300">About</a></li>
+        <li><a href="project.html" class="hover:text-gray-500 dark:hover:text-gray-300">Projects</a></li>
+        <li><a href="#contact" class="hover:text-gray-500 dark:hover:text-gray-300">Contact</a></li>
+      </ul>
+      <div class="flex items-center space-x-2">
+        <!-- Dark mode toggle button -->
+        <button 
+          x-on:click="switchTheme"
+          class="text-xl md:mr-2"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+          id="theme-toggle-btn"
+        >
+          <span id="theme-sun">&#9788;</span>
+          <span id="theme-moon" style="display:none">&#9790;</span>
+        </button>
+        <button
+          class="nav-toggle text-2xl focus:outline-none md:hidden"
+          aria-label="Toggle navigation"
+          id="nav-toggle"
+        >
+          &#9776;
+        </button>
+      </div>
     </div>
-    <ul
-      class="nav-links hidden flex-col items-center mt-2 space-y-4 md:space-y-0 md:flex md:flex-row md:space-x-6 md:mt-0"
-      id="nav-links"
-    >
-      <li><a href="#home" class="hover:text-gray-500 dark:hover:text-gray-300">Home</a></li>
-      <li><a href="#about" class="hover:text-gray-500 dark:hover:text-gray-300">About</a></li>
-      <li><a href="project.html" class="hover:text-gray-500 dark:hover:text-gray-300">Projects</a></li>
-      <li><a href="#contact" class="hover:text-gray-500 dark:hover:text-gray-300">Contact</a></li>
-    </ul>
   </nav>
 </header>
   <!-- Hero Section -->
-  <section class="hero-gradient text-white pt-24 pb-16 text-center">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Kverify Digital Solutions</h2>
-      <p class="text-lg md:text-xl max-w-xl mx-auto mb-6">We deliver exceptional services tailored to meet your needs.</p>
-      <a href="#contact" class="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-2 px-6 rounded-md transition">
+  <section class="hero-gradient text-white pt-24 pb-16 text-center hero-animate relative overflow-hidden">
+    <!-- Floating Tech Icons Animation -->
+    <div id="floating-icons" aria-hidden="true" style="pointer-events:none;z-index:0;position:absolute;top:0;left:0;width:100%;height:100%;">
+      <svg width="100%" height="100%" style="position:absolute;top:0;left:0;">
+        <circle cx="10%" cy="20%" r="24" fill="#6366f1" opacity="0.15">
+          <animate attributeName="cy" values="20%;80%;20%" dur="12s" repeatCount="indefinite"/>
+        </circle>
+        <rect x="80%" y="10%" width="40" height="40" rx="8" fill="#0ea5e9" opacity="0.12">
+          <animate attributeName="y" values="10%;70%;10%" dur="14s" repeatCount="indefinite"/>
+        </rect>
+        <circle cx="50%" cy="80%" r="18" fill="#a21caf" opacity="0.13">
+          <animate attributeName="cy" values="80%;30%;80%" dur="10s" repeatCount="indefinite"/>
+        </circle>
+        <rect x="30%" y="60%" width="28" height="28" rx="6" fill="#38bdf8" opacity="0.11">
+          <animate attributeName="y" values="60%;20%;60%" dur="11s" repeatCount="indefinite"/>
+        </rect>
+      </svg>
+    </div>
+    <div class="container mx-auto px-4 relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        <span id="typed-hero"></span>
+        <span class="blinking-cursor text-blue-200">|</span>
+      </h2>
+      <p class="text-lg md:text-xl max-w-xl mx-auto mb-6">We deliver exceptional <span class="text-blue-400 font-semibold">tech-driven</span> services tailored to meet your needs.</p>
+      <a href="#contact" class="inline-block glow-btn font-semibold py-2 px-6 rounded-md transition">
         Get Started 
       </a>
     </div>
   </section>
   <!-- Image Carousel -->
-  
-<!-- <section class="py-10 bg-gray-50 dark:bg-gray-800">
+  <section class="py-10 bg-gray-50 dark:bg-gray-800 overflow-x-hidden">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-8">Our Work</h2>
-    <div class="swiper-container w-full">
+    <div class="swiper-container w-full overflow-x-hidden">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="2.jpeg" alt="Project 1" class="w-full h-64 object-cover rounded-lg shadow-md">
+          <img src="assets/images/2.jpeg" alt="Project 1" class="w-full h-64 object-cover rounded-lg shadow-md">
         </div>
         <div class="swiper-slide">
-          <img src="3.jpeg" alt="Project 2" class="w-full h-64 object-cover rounded-lg shadow-md">
+          <img src="assets/images/3.jpeg" alt="Project 2" class="w-full h-64 object-cover rounded-lg shadow-md">
         </div>
         <div class="swiper-slide">
-          <img src="1.jpeg" alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-md">
+          <img src="assets/images/1.jpeg" alt="Project 3" class="w-full h-64 object-cover rounded-lg shadow-md">
         </div>
-      </div>-->
+      </div>
       <!-- Add Pagination -->
-<!--       <div class="swiper-pagination mt-4"></div>
+      <div class="swiper-pagination mt-4"></div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </div>
 </section>
-  -->
+  
   <!-- About Section -->
-  <section id="about" class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">About Us</h2>
+  <section id="about" class="py-16 bg-transparent dark:bg-transparent dark:text-white">
+    <div class="container mx-auto px-4 tech-glow">
+      <h2 class="text-3xl font-bold text-center mb-10 section-title">About Us</h2>
       <div class="flex flex-col md:flex-row items-center gap-8">
         <div class="md:w-1/2">
-
-          <img src="about.jpg " alt="About Us" class="rounded-lg shadow-md w-full object-cover h-64 md:h-auto">
-
-
+          <img src="assets/images/about.jpg" alt="About Us" class="rounded-lg shadow-md w-full object-cover h-64 md:h-auto">
         </div>
         <div class="md:w-1/2">
           <p class="text-lg mb-4">
@@ -145,41 +428,49 @@ header {
                   class="mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
             Contact Us
           </button>
+          <!-- Animated Counters -->
+          <div class="flex gap-8 mt-8 justify-center">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 counter" data-target="50">0</div>
+              <div class="text-sm mt-1">Projects</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 counter" data-target="30">0</div>
+              <div class="text-sm mt-1">Clients</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 counter" data-target="5">0</div>
+              <div class="text-sm mt-1">Years</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="py-16 bg-white dark:bg-gray-900 dark:text-white">
+  <section id="services" class="py-16 bg-transparent dark:bg-transparent dark:text-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
+      <h2 class="text-3xl font-bold text-center mb-10 section-title">Our Services</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
         <!-- Service 1 -->
-        <div class="border p-6 rounded-lg shadow hover:shadow-lg transition dark:border-gray-700 flex flex-col">
-
-          <img src="2.jpeg" alt="Web Development" class="w-full h-40 object-cover rounded mb-4">
-
-                   <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+        <div class="tech-glow p-6 flex flex-col hover:scale-105 transition-transform duration-300">
+          <img src="assets/images/2.jpeg" alt="Web Development" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Web Development</h3>
           <p>Custom-built websites and apps designed for performance, scalability, and user engagement.</p>
         </div>
-
         <!-- Service 2 -->
-        <div class="border p-6 rounded-lg shadow hover:shadow-lg transition dark:border-gray-700 flex flex-col">
-          <img src="1.jpeg" alt="Digital Marketing" class="w-full h-40 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Digital Marketing</h3>
+        <div class="tech-glow p-6 flex flex-col hover:scale-105 transition-transform duration-300">
+          <img src="assets/images/1.jpeg" alt="Digital Marketing" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Digital Marketing</h3>
           <p>Grow your brand online with SEO, paid ads, email campaigns, and more.</p>
         </div>
-
         <!-- Service 3 -->
-        <div class="border p-6 rounded-lg shadow hover:shadow-lg transition dark:border-gray-700 flex flex-col">
-          <img src="
-            3.jpeg " alt="Graphic Design" class="w-full h-40 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Graphic Design</h3>
+        <div class="tech-glow p-6 flex flex-col hover:scale-105 transition-transform duration-300">
+          <img src="assets/images/3.jpeg" alt="Graphic Design" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Graphic Design</h3>
           <p>Eye-catching designs for logos, brochures, branding materials, and digital assets.</p>
         </div>
-
       </div>
     </div>
   </section>
@@ -189,32 +480,35 @@ header {
     <div class="container mx-auto px-4">
       <h2 class="text-2xl font-bold mb-6 text-center">Skills</h2>
       <div class="flex flex-wrap justify-center gap-4">
-        <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full">HTML</span>
-        <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full">Tailwind CSS</span>
-        <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full">JavaScript</span>
-        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full">Django</span>
-        <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full">Flutter</span>
+        <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">HTML</span>
+        <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">Tailwind CSS</span>
+        <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">JavaScript</span>
+        <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">Django</span>
+        <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">Flutter</span>
+        <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">PHP</span>
+        <span class="bg-pink-100 text-pink-700 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">React Native</span>
+        <span class="bg-gray-100 text-gray-800 px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200 font-semibold tracking-wide">Python</span>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section class="bg-white py-12">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold mb-6">Latest Projects</h2>
+  <section class="bg-transparent py-12">
+    <div class="container mx-auto px-4 text-center tech-glow">
+      <h2 class="text-2xl font-bold mb-6 section-title">Latest Projects</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-          <img src="django.jpeg" alt="Project 1" class="mb-4 rounded">
+          <img src="assets/images/django.jpeg" alt="Project 1" class="mb-4 rounded">
           <h3 class="font-semibold text-xl mb-2">KVerify Platform</h3>
           <p class="text-gray-600 text-sm">A Django-based app for secure NIN/BVN verification and identity management.</p>
         </div>
         <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-          <img src="vtu.jpeg" alt="Project 2" class="mb-4 rounded">
+          <img src="assets/images/vtu.jpeg" alt="Project 2" class="mb-4 rounded">
           <h3 class="font-semibold text-xl mb-2">Personal VTU App</h3>
           <p class="text-gray-600 text-sm">Built with Flutter and Firebase, offering airtime/data purchases and wallet system.</p>
         </div>
         <div class="bg-gray-100 p-6 rounded-lg shadow-md">
-          <img src="secure.png" alt="Project 3" class="mb-4 rounded">
+          <img src="assets/images/secure.png" alt="Project 3" class="mb-4 rounded">
           <h3 class="font-semibold text-xl mb-2">SecureAuth System</h3>
           <p class="text-gray-600 text-sm">User authentication and role-based access control using Django & REST API.</p>
         </div>
@@ -223,9 +517,9 @@ header {
   </section>
 
   <!-- Testimonials -->
-  <section class="bg-gray-50 py-12">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold mb-6">Testimonials</h2>
+  <section class="bg-transparent py-12">
+    <div class="container mx-auto px-4 text-center tech-glow">
+      <h2 class="text-2xl font-bold mb-6 section-title">Testimonials</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="p-6 border rounded-lg shadow bg-white">
           <img src="cleint-1.jpeg" class="w-16 h-16 rounded-full mx-auto mb-4" alt="Client A">
@@ -242,54 +536,104 @@ header {
   </section>
 
   <!-- Pricing Section -->
-  <section id="pricing" class="py-16 bg-white dark:bg-gray-900 dark:text-white">
+  <section id="pricing" class="py-16 bg-transparent dark:bg-transparent dark:text-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">Our Pricing</h2>
+      <h2 class="text-3xl font-bold text-center mb-10 section-title">Our Pricing</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="border p-6 rounded-lg shadow text-center">
-          <h3 class="text-xl font-semibold mb-2">Basic</h3>
-          <p class="text-3xl font-bold mb-4">₦30,000</p>
+        <div class="tech-glow p-6 rounded-lg shadow text-center">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Basic</h3>
+          <p class="text-3xl font-bold mb-4 text-blue-200">₦30,000</p>
           <ul class="space-y-2 mb-4">
             <li>✓ 1 Page Website</li>
             <li>✓ Basic SEO Setup</li>
             <li>✓ Email Support</li>
           </ul>
-          <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Get Started</button>
+          <button class="glow-btn px-4 py-2 rounded">Get Started</button>
         </div>
-        <div class="border p-6 rounded-lg shadow text-center bg-blue-50 dark:bg-gray-800">
-          <h3 class="text-xl font-semibold mb-2">Standard</h3>
-          <p class="text-3xl font-bold mb-4">₦70,000</p>
+        <div class="tech-glow p-6 rounded-lg shadow text-center bg-blue-50 dark:bg-gray-800">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Standard</h3>
+          <p class="text-3xl font-bold mb-4 text-blue-200">₦70,000</p>
           <ul class="space-y-2 mb-4">
             <li>✓ Up to 5 Pages</li>
             <li>✓ Full SEO Optimization</li>
             <li>✓ 2 Months Support</li>
           </ul>
-          <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Get Started</button>
+          <button class="glow-btn px-4 py-2 rounded">Get Started</button>
         </div>
-        <div class="border p-6 rounded-lg shadow text-center">
-          <h3 class="text-xl font-semibold mb-2">Premium</h3>
-          <p class="text-3xl font-bold mb-4">₦150,000+</p>
+        <div class="tech-glow p-6 rounded-lg shadow text-center">
+          <h3 class="text-xl font-semibold mb-2 text-blue-300">Premium</h3>
+          <p class="text-3xl font-bold mb-4 text-blue-200">₦150,000+</p>
           <ul class="space-y-2 mb-4">
             <li>✓ Custom App or E-commerce</li>
             <li>✓ Full Branding Kit</li>
             <li>✓ Dedicated Project Manager</li>
           </ul>
-          <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Contact Us</button>
+          <button class="glow-btn px-4 py-2 rounded">Contact Us</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FAQ Accordion Section -->
+  <section class="py-12 bg-transparent dark:bg-transparent">
+    <div class="container mx-auto px-4 max-w-2xl tech-glow">
+      <h2 class="text-2xl font-bold mb-6 section-title text-center">Frequently Asked Questions</h2>
+      <div id="faq-accordion">
+        <div class="faq-item border-b border-blue-900">
+          <button class="faq-question flex justify-between items-center w-full py-4 text-left font-semibold text-blue-200 focus:outline-none transition">
+            What technologies do you specialize in?
+            <span class="faq-arrow transition-transform">&#9660;</span>
+          </button>
+          <div class="faq-answer hidden pb-4 text-blue-100">
+            We specialize in Django, Flutter, Tailwind CSS, JavaScript, and cloud solutions for scalable, secure, and modern applications.
+          </div>
+        </div>
+        <div class="faq-item border-b border-blue-900">
+          <button class="faq-question flex justify-between items-center w-full py-4 text-left font-semibold text-blue-200 focus:outline-none transition">
+            How long does a typical project take?
+            <span class="faq-arrow transition-transform">&#9660;</span>
+          </button>
+          <div class="faq-answer hidden pb-4 text-blue-100">
+            Project timelines vary, but most websites are delivered within 2-4 weeks, and custom apps within 4-8 weeks.
+          </div>
+        </div>
+        <div class="faq-item border-b border-blue-900">
+          <button class="faq-question flex justify-between items-center w-full py-4 text-left font-semibold text-blue-200 focus:outline-none transition">
+            Do you offer post-launch support?
+            <span class="faq-arrow transition-transform">&#9660;</span>
+          </button>
+          <div class="faq-answer hidden pb-4 text-blue-100">
+            Yes! All packages include support, and we offer ongoing maintenance and updates as needed.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animated Call-to-Action Banner -->
+  <section class="py-8">
+    <div class="container mx-auto px-4">
+      <div class="tech-glow flex flex-col md:flex-row items-center justify-between px-6 py-6 animate-pulse">
+        <div class="text-xl font-bold text-blue-200 mb-4 md:mb-0">
+          Ready to launch your next big idea?
+        </div>
+        <a href="#contact" class="glow-btn px-6 py-3 rounded text-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300">
+          Contact Us Now
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Newsletter Signup -->
-  <section class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white">
-    <div class="container mx-auto px-4 max-w-lg text-center">
-      <h2 class="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+  <section class="py-16 bg-transparent dark:bg-transparent dark:text-white">
+    <div class="container mx-auto px-4 max-w-lg text-center tech-glow">
+      <h2 class="text-2xl font-bold mb-4 section-title">Subscribe to Our Newsletter</h2>
       <p class="mb-4">Get updates on our latest projects, blogs, and promotions.</p>
       <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
         <input type="email" placeholder="Enter your email" required
-               class="p-3 border rounded focus:ring focus:ring-blue-200 outline-none flex-1 dark:bg-gray-700 dark:border-gray-600">
+               class="p-3 border rounded focus:ring focus:ring-blue-200 outline-none flex-1 dark:bg-gray-700 dark:border-gray-600 bg-gray-900 text-white">
         <button type="submit"
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition">
+                class="glow-btn px-4 py-2 rounded transition">
           Subscribe
         </button>
       </form>
@@ -298,9 +642,9 @@ header {
   </section>
 
   <!-- Google Map -->
-  <section class="py-16 bg-white dark:bg-gray-900 dark:text-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">Find Us</h2>
+  <section class="py-16 bg-transparent dark:bg-transparent dark:text-white">
+    <div class="container mx-auto px-4 tech-glow">
+      <h2 class="text-3xl font-bold text-center mb-10 section-title">Find Us</h2>
       <div class="w-full h-80 rounded-lg overflow-hidden shadow">
         <iframe
           width="100%"
@@ -317,19 +661,19 @@ header {
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">Get In Touch</h2>
+  <section id="contact" class="py-16 bg-transparent dark:bg-transparent dark:text-white">
+    <div class="container mx-auto px-4 tech-glow">
+      <h2 class="text-3xl font-bold text-center mb-10 section-title">Get In Touch</h2>
       <div class="max-w-lg mx-auto">
         <form id="contactForm" class="space-y-4">
           <input type="text" placeholder="Your Name" required
-                 class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600">
+                 class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600 bg-gray-900 text-white">
           <input type="email" placeholder="Your Email" required
-                 class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600">
+                 class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600 bg-gray-900 text-white">
           <textarea rows="4" placeholder="Your Message" required
-                    class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600"></textarea>
+                    class="w-full p-3 border rounded focus:ring focus:ring-blue-200 outline-none dark:bg-gray-700 dark:border-gray-600 bg-gray-900 text-white"></textarea>
           <button type="submit"
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded transition">
+                  class="w-full glow-btn font-semibold py-3 rounded transition">
             Send Message
           </button>
         </form>
@@ -339,12 +683,24 @@ header {
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8 dark:bg-gray-900">
+  <footer class="bg-transparent text-white py-8 dark:bg-gray-900">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div>
-          <h3 class="text-xl font-bold">Kverify Digital Solutions</h3>
-          <p class="text-sm text-gray-400">Delivering quality since 2020</p>
+          <h3 class="text-xl font-bold logo">Kverify Digital Solutions</h3>
+          <p class="text-sm text-blue-200">Delivering quality since 2020</p>
+        </div>
+        <!-- Social Media Links -->
+        <div class="flex gap-4 mt-4 md:mt-0">
+          <a href="https://twitter.com/" target="_blank" aria-label="Twitter" class="hover:text-blue-400 text-xl"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 inline"><path d="M24 4.557a9.93 9.93 0 0 1-2.828.775A4.932 4.932 0 0 0 23.337 3.1a9.864 9.864 0 0 1-3.127 1.195A4.916 4.916 0 0 0 16.616 3c-2.72 0-4.924 2.206-4.924 4.924 0 .386.044.762.127 1.124C7.728 8.807 4.1 6.884 1.671 3.965a4.822 4.822 0 0 0-.666 2.475c0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 0 1-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.936 4.936 0 0 1-2.224.084c.627 1.956 2.444 3.377 4.6 3.417A9.867 9.867 0 0 1 0 21.543a13.94 13.94 0 0 0 7.548 2.212c9.057 0 14.009-7.513 14.009-14.009 0-.213-.005-.425-.014-.636A10.012 10.012 0 0 0 24 4.557z"/></svg></a>
+          <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn" class="hover:text-blue-300 text-xl"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 inline"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.845-1.563 3.043 0 3.604 2.004 3.604 4.609v5.587z"/></svg></a>
+          <a href="mailto:info@kverify.com" aria-label="Email" class="hover:text-yellow-400 text-xl"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 inline"><path d="M12 13.065l-11.99-8.065h23.98l-11.99 8.065zm-12-9.065v16h24v-16h-24zm22 2.236v11.764h-20v-11.764l10 6.729 10-6.729z"/></svg></a>
+          <!-- WhatsApp Icon -->
+          <a href="https://wa.me/2348012345678" target="_blank" aria-label="WhatsApp" class="hover:text-green-400 text-xl">
+            <svg fill="currentColor" viewBox="0 0 32 32" class="w-6 h-6 inline">
+              <path d="M16.001 3.2c-7.062 0-12.8 5.738-12.8 12.8 0 2.262.6 4.462 1.738 6.4l-1.862 6.8 7.025-1.85c1.85 1.012 3.938 1.55 5.899 1.55h.001c7.062 0 12.8-5.738 12.8-12.8s-5.738-12.8-12.801-12.8zm6.962 18.238c-.3.838-1.762 1.637-2.425 1.75-.637.112-1.425.162-2.3-.15-.525-.175-1.2-.388-2.075-.762-3.65-1.587-6.037-5.488-6.225-5.75-.188-.262-1.488-1.975-1.488-3.775 0-1.8 1.125-2.687 1.525-3.05.4-.363.875-.45 1.175-.45.3 0 .588.006.838.016.262.012.625-.1.975.75.363.875 1.238 3.025 1.35 3.25.112.225.188.5.037.813-.15.312-.225.5-.45.775-.225.275-.475.613-.675.825-.225.225-.45.463-.2.9.25.438 1.112 1.825 2.388 2.95 1.637 1.45 2.025 1.2 2.4 1.05.375-.15 1.025-.413 1.3-.825.275-.413 1.3-1.438 1.65-1.938.35-.5.7-.413 1.175-.25.475.162 3.025 1.425 3.55 1.675.525.25.875.375 1 .588.125.213.125 1.237-.175 2.075z"/>
+            </svg>
+          </a>
         </div>
         <div class="mt-4 md:mt-0">
           <p class="text-sm">&copy; 2025 Kuyabetech. All rights reserved.</p>
@@ -352,6 +708,19 @@ header {
       </div>
     </div>
   </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/2348012345678" target="_blank" aria-label="Chat on WhatsApp"
+     class="fixed bottom-20 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg p-4 flex items-center justify-center transition-all duration-300"
+     style="box-shadow: 0 4px 24px 0 rgba(16,185,129,0.25);">
+    <svg fill="currentColor" viewBox="0 0 32 32" class="w-7 h-7">
+      <path d="M16.001 3.2c-7.062 0-12.8 5.738-12.8 12.8 0 2.262.6 4.462 1.738 6.4l-1.862 6.8 7.025-1.85c1.85 1.012 3.938 1.55 5.899 1.55h.001c7.062 0 12.8-5.738 12.8-12.8s-5.738-12.8-12.801-12.8zm6.962 18.238c-.3.838-1.762 1.637-2.425 1.75-.637.112-1.425.162-2.3-.15-.525-.175-1.2-.388-2.075-.762-3.65-1.587-6.037-5.488-6.225-5.75-.188-.262-1.488-1.975-1.488-3.775 0-1.8 1.125-2.687 1.525-3.05.4-.363.875-.45 1.175-.45.3 0 .588.006.838.016.262.012.625-.1.975.75.363.875 1.238 3.025 1.35 3.25.112.225.188.5.037.813-.15.312-.225.5-.45.775-.225.275-.475.613-.675.825-.225.225-.45.463-.2.9.25.438 1.112 1.825 2.388 2.95 1.637 1.45 2.025 1.2 2.4 1.05.375-.15 1.025-.413 1.3-.825.275-.413 1.3-1.438 1.65-1.938.35-.5.7-.413 1.175-.25.475.162 3.025 1.425 3.55 1.675.525.25.875.375 1 .588.125.213.125 1.237-.175 2.075z"/>
+    </svg>
+  </a>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition hidden z-50" aria-label="Scroll to top">
+    &#8679;
+  </button>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js "></script>
@@ -365,11 +734,15 @@ navToggle.addEventListener("click", function () {
 navLinks.classList.toggle("active");
 });
 });
-    // Initialize Swiper
-    <script>
+  // Initialize Swiper
   var swiper = new Swiper('.swiper-container', {
     slidesPerView: 1, // Show one slide at a time by default
     spaceBetween: 10, // Space between slides
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -387,8 +760,7 @@ navLinks.classList.toggle("active");
       },
     },
   });
-</script>
-  <script>
+  
     // Newsletter & Contact Forms
     document.getElementById("newsletterForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -401,11 +773,142 @@ navLinks.classList.toggle("active");
       document.getElementById("formStatus").classList.remove("hidden");
       this.reset();
     });
-    
+
+    // Animated Counters
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / 100);
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCount();
+      });
+    }
+    // Run counters when About section is in view
+    let countersStarted = false;
+    window.addEventListener('scroll', function() {
+      const aboutSection = document.getElementById('about');
+      if (!countersStarted && aboutSection.getBoundingClientRect().top < window.innerHeight) {
+        animateCounters();
+        countersStarted = true;
+      }
+    });
+
+    // Scroll to Top Button
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        scrollToTopBtn.classList.remove('hidden');
+      } else {
+        scrollToTopBtn.classList.add('hidden');
+      }
+    });
+    scrollToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Animated Typing Effect for Hero
+    document.addEventListener("DOMContentLoaded", function () {
+      // Typing effect
+      const typedTexts = [
+        "Welcome to Kverify Digital Solutions",
+        "Empowering Your Business with Technology",
+        "Innovative Web & App Development",
+        "Your Trusted Tech Partner"
+      ];
+      let typedIndex = 0, charIndex = 0, isDeleting = false;
+      const typedHero = document.getElementById('typed-hero');
+      function typeHero() {
+        if (!typedHero) return;
+        let current = typedTexts[typedIndex];
+        if (isDeleting) {
+          typedHero.textContent = current.substring(0, charIndex--);
+          if (charIndex < 0) {
+            isDeleting = false;
+            typedIndex = (typedIndex + 1) % typedTexts.length;
+            setTimeout(typeHero, 700);
+          } else {
+            setTimeout(typeHero, 40);
+          }
+        } else {
+          typedHero.textContent = current.substring(0, charIndex++);
+          if (charIndex > current.length) {
+            isDeleting = true;
+            setTimeout(typeHero, 1200);
+          } else {
+            setTimeout(typeHero, 70);
+          }
+        }
+      }
+      if (typedHero) typeHero();
+
+      // FAQ Accordion
+      document.querySelectorAll('.faq-question').forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const answer = this.parentElement.querySelector('.faq-answer');
+          const arrow = this.querySelector('.faq-arrow');
+          if (answer.classList.contains('hidden')) {
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+            document.querySelectorAll('.faq-arrow').forEach(ar => ar.style.transform = '');
+            answer.classList.remove('hidden');
+            arrow.style.transform = 'rotate(180deg)';
+          } else {
+            answer.classList.add('hidden');
+            arrow.style.transform = '';
+          }
+        });
+      });
+    });
+
+  // Contact Form AJAX Send
+  document.addEventListener("DOMContentLoaded", function () {
+    // Contact form send
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+    if (contactForm) {
+      contactForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
+        formStatus.textContent = "Sending...";
+        formStatus.classList.add("text-blue-400");
+        // Gather form data
+        const [name, email, message] = Array.from(contactForm.querySelectorAll("input, textarea")).map(i => i.value);
+        // Example POST (replace URL with your backend endpoint)
+        fetch("https://formspree.io/f/your-form-id", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message })
+        })
+        .then(res => {
+          if (res.ok) {
+            formStatus.textContent = "Message sent successfully!";
+            formStatus.classList.remove("text-blue-400");
+            formStatus.classList.add("text-green-600");
+            contactForm.reset();
+          } else {
+            throw new Error("Network error");
+          }
+        })
+        .catch(() => {
+          formStatus.textContent = "Failed to send. Please try again.";
+          formStatus.classList.remove("text-blue-400");
+          formStatus.classList.add("text-red-600");
+        });
+      });
+    }
+  });
   </script>
 
   
-<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
   const swiper = new Swiper('.swiper-container', {
     loop: true,
@@ -414,7 +917,7 @@ navLinks.classList.toggle("active");
     },
   });
 </script>
- -->
+ 
 
 <script>
   const navToggle = document.getElementById('nav-toggle');
@@ -424,5 +927,28 @@ navLinks.classList.toggle("active");
     navLinks.classList.toggle('hidden'); // Toggle visibility
   });
 </script>
+<script>
+  // Theme icon toggle
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById('theme-toggle-btn');
+    const sun = document.getElementById('theme-sun');
+    const moon = document.getElementById('theme-moon');
+    btn.addEventListener('click', function () {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (!isDark) {
+        sun.style.display = 'none';
+        moon.style.display = '';
+      } else {
+        // If cycling back to light, show sun
+        if (techThemeIndex === 0) {
+          sun.style.display = '';
+          moon.style.display = 'none';
+        }
+      }
+    });
+  });
+</script>
 </body>
+</html>
+</html>
 </html>
