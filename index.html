@@ -702,7 +702,7 @@ navLinks.classList.toggle("active");
     },
   });
   
-    // Newsletter & Contact Forms
+    // Newsletter form
     document.getElementById("newsletterForm").addEventListener("submit", function(e) {
       e.preventDefault();
       document.getElementById("newsletterStatus").classList.remove("hidden");
@@ -710,38 +710,46 @@ navLinks.classList.toggle("active");
     });
 
     // EmailJS Contact Form
-    (function() {
-      emailjs.init("YOUR_EMAILJS_USER_ID"); // <-- Replace with your EmailJS user ID
-    })();
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize EmailJS (replace with your actual user ID)
+      emailjs.init("TiOZsQwgonrq0_6rl"); // e.g. "user_xxxxxxxxxxxxxxxxx"
 
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      var formStatus = document.getElementById("formStatus");
-      formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
-      formStatus.textContent = "Sending...";
-      formStatus.classList.add("text-blue-400");
+      document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var formStatus = document.getElementById("formStatus");
+        formStatus.classList.remove("hidden", "text-green-600", "text-red-600");
+        formStatus.textContent = "Sending...";
+        formStatus.classList.add("text-blue-400");
 
-      // Prepare params for EmailJS
-      var form = this;
-      var params = {
-        from_name: form.querySelector('input[placeholder="Your Name"]').value,
-        from_email: form.querySelector('input[placeholder="Your Email"]').value,
-        message: form.querySelector('textarea[placeholder="Your Message"]').value
-      };
+        var params = {
+          from_name: this.querySelector('input[placeholder="Your Name"]').value,
+          from_email: this.querySelector('input[placeholder="Your Email"]').value,
+          message: this.querySelector('textarea[placeholder="Your Message"]').value
+        };
 
-      // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID' with your EmailJS values
-      emailjs.send('service_lpmhx1f', 'template_wy4ezja', params)
-        .then(function() {
-          formStatus.textContent = "Message sent successfully!";
-          formStatus.classList.remove("text-blue-400");
-          formStatus.classList.add("text-green-600");
-          form.reset();
-        }, function(error) {
-          formStatus.textContent = "Failed to send. Please try again.";
-          formStatus.classList.remove("text-blue-400");
-          formStatus.classList.add("text-red-600");
-        });
+        // Replace with your actual EmailJS service ID and template ID
+        emailjs.send('service_lpmhx1f', 'template_wy4ezja', params)
+          .then(function() {
+            formStatus.textContent = "Message sent successfully!";
+            formStatus.classList.remove("text-blue-400");
+            formStatus.classList.add("text-green-600");
+            document.getElementById("contactForm").reset();
+          }, function(error) {
+            formStatus.textContent = "Failed to send. Please check your internet connection or try again later.";
+            formStatus.classList.remove("text-blue-400");
+            formStatus.classList.add("text-red-600");
+          });
+      });
     });
+
+    // Fix menu toggle for mobile navigation
+  document.addEventListener("DOMContentLoaded", function () {
+    const navToggle = document.getElementById("nav-toggle");
+    const navLinks = document.getElementById("nav-links");
+    navToggle.addEventListener("click", function () {
+      navLinks.classList.toggle("hidden");
+    });
+  });
 
     // Animated Counters
     function animateCounters() {
@@ -890,4 +898,5 @@ navLinks.classList.toggle("active");
 
 <!-- Removed duplicate navToggle/navLinks script to fix redeclaration error -->
 </body>
+</html>
 </html>
